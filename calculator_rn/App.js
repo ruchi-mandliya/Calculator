@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const App = () => {
   const [darkTheme, setDarkTheme] = useState(false);
-  const [result, setResult] = useState("adfvv");
+  const [result, setResult] = useState("");
 
   const colors = {
     dark: "#22252D",
@@ -13,12 +13,27 @@ const App = () => {
     light1: "rgb(220, 220, 220)",
     light2: "#F7F7F7",
   };
+
+  const calculate = (title) => {
+    if(title == 'C') {
+      setResult('')
+    } else if(title == 'DL') {
+      setResult(result.substring(0, result.length - 1));
+    }  else if(title == '=') {
+      const ans = Number(eval(result).toFixed(3)).toString();
+      setResult(ans);
+    } else {
+      setResult(result + title);
+    }
+  } 
+
   const Btn = ({ title ,type}) => (
-    <TouchableOpacity
+    <TouchableOpacity 
+      onPress={() => calculate(title)}
       style={{
         padding: 10,
         borderRadius: 10,
-        elevation: 8,
+        elevation: 4,
         backgroundColor: getColor(colors.light1, colors.dark2),
         height: 70,
         width: 70,
